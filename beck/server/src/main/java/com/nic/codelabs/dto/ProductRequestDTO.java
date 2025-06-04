@@ -1,0 +1,9 @@
+package com.nic.codelabs.dto;
+
+import com.nic.codelabs.model.Product;
+
+public record ProductRequestDTO(String name, String description, float price) {
+    public ProductRequestDTO(Product product){
+        this(product.getName(),product.getDescription(), product.getPrice());
+    }
+}
