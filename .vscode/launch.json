@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CodelabsApplication<codelabs>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.nic.codelabs.CodelabsApplication",
+            "projectName": "codelabs",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
