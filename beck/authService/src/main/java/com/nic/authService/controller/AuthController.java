@@ -29,9 +29,13 @@ public class AuthController {
     UserRepository userRepository;
 
     @PostMapping("/register")
-    public String register(@RequestBody User user)
+    public ResponseEntity<String> register(@RequestBody User user)
     {
-        return authService.saveUser(user);
+        if(userRepository.findByEmail(user.getEmail()) != null)
+        {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email already exists");
+        }
+        return  ResponseEntity.status(HttpStatus.CREATED).body(authService.saveUser(user));
     }
     
     @PostMapping("/login")
