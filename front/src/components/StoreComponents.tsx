@@ -1,4 +1,4 @@
-import { Link, redirect } from 'react-router-dom';
+
 import type {Product} from '../types';
 import { useState } from 'react';
 import axios from 'axios';

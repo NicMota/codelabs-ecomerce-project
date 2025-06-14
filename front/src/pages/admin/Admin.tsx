@@ -1,14 +1,22 @@
 import { useState } from "react"
 import { ProductForm } from "../../components/AdmComponents"
 import { Toaster } from "react-hot-toast";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Admin(){
 
     const [productForm,setProductForm] = useState<boolean>(false);
-    const [removeCard,setRemoveCard] = useState<boolean>(false);
-
+   //const [removeCard,setRemoveCard] = useState<boolean>(false);
+    const {user,logout} = useAuth();
     return(
-        <div className="flex h-screen gradient-anim">
+        <div className="flex h-screen gradient-anim">   
+            {user!=null?
+            <button
+            className="self-end absolute right-0 bg-red-800 h-fit self-right m-4 text-white rounded  hover:scale-[1.1]  font-bold transition-all ease-in-out duration-150  p-2 capitalize cursor-pointer"
+            onClick={logout}
+            > 
+            logout 
+            </button> : ''}
             <Toaster/>
             <div className="m-auto flex flex-col gap-y-4">
                 <h1 className="text-5xl m-auto">AREA DO ADM!!</h1>
@@ -27,7 +35,7 @@ export default function Admin(){
                     className="bg-red-800 w-1/2 text-white rounded  hover:scale-[1.1]  font-bold transition-all ease-in-out duration-150 m-auto p-2 capitalize cursor-pointer"
                     onClick={()=>{
                         setProductForm(false);
-                        setRemoveCard(false);
+                        //setRemoveCard(false);
                     }}>
                         voltar 
                     </button> 

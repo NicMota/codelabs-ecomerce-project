@@ -20,6 +20,7 @@ public class AuthService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByEmail(username);
     }
+
     public String saveUser(User user)
     {
         user.setPassword(passwordEncoder.encode(user.getPassword()));

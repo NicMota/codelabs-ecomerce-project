@@ -3,15 +3,12 @@ package com.nic.authService.model;
 import java.util.Collection;
 import java.util.List;
 
+import jakarta.persistence.*;
+import jakarta.ws.rs.DefaultValue;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -33,16 +30,25 @@ public class User implements UserDetails {
 
     private String username;
 
-    private Role role;
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
+
+    @Column(unique = true,nullable = false)
     private String email;
 
     private String password;
 
+    @PrePersist
+    public void prePersist() {
+        if (this.role == null) {
+            this.role = Role.USER;
+        }
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == Role.USER)
-            return List.of(new SimpleGrantedAuthority("ROLE_"+this.role.name()));
+
+        return List.of(new SimpleGrantedAuthority("ROLE_"+this.role.name()));
     }
 
     @Override

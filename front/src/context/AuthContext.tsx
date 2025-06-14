@@ -1,7 +1,7 @@
-import {createContext, useContext,useState, type ReactNode} from 'react';
+import {createContext, useContext,useEffect,useState, type ReactNode} from 'react';
 type User = {
     name:string;
-    role:"admin" | "user";
+    role:"ADMIN" | "USER";
     token:string;
 };
 
@@ -11,11 +11,33 @@ type AuthContextType = {
   logout: () => void;
 };
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    const storedAuth = localStorage.getItem("auth");
+    if (!storedAuth) return null;
+    
+    const parsedUser = JSON.parse(storedAuth);
+    if (new Date(parsedUser.expiry) < new Date()) {
+      localStorage.removeItem("auth"); // Clear expired token
+      return null;
+    }
+    return parsedUser;
+  });
+
+  useEffect(() => {
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === "auth" && !e.newValue) {
+        setUser(null); 
+      }
+    };
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
 
   function login(userData: User) {
     setUser(userData);
-    localStorage.setItem("auth", JSON.stringify(userData)); // opcional
+    localStorage.setItem("auth", JSON.stringify(userData)); 
+    window.location.href = '/store';
+
   }
 
   function logout() {

@@ -3,15 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import {TextInput,PassInput, SubmitButton} from "../components/FormComponents";
-import { useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import api from "../lib/axios";
 export default function Home()
 {
-    const [user, setUser] = useState<string>('');
-    const [pass, setPass] = useState<string>('');
 
-    async function login(e: React.FormEvent<HTMLFormElement>)
+    const { login } = useAuth();
+    async function handleLogin(e: React.FormEvent<HTMLFormElement>)
     {   e.preventDefault();
         const { user, pass } = Object.fromEntries(new FormData(e.currentTarget)) as
         {
@@ -24,10 +23,17 @@ export default function Home()
             return;
         }
         try{
-            let res = await axios.post('http://localhost:8080/auth/login', {
-                username:user,
+            let res = await api.post('/auth/login', {
+                email:user,
                 password:pass
             });
+            if(res.status == 200){
+                login({
+                    name: user,
+                    role: res.data.role,
+                    token: res.data.token
+                });
+            }
             console.log(res);
         }catch(err)
         {
@@ -45,7 +51,7 @@ export default function Home()
                 e-commerce project
             </span>
             <div className="bg-gray-100  border-blue text-blue-500 border-1 rounded p-4">
-                <form className="flex flex-col gap-y-2" onSubmit={login}>
+                <form className="flex flex-col gap-y-2" onSubmit={handleLogin}>
                     <label className="flex items-center ">
                         Usuário:   <FontAwesomeIcon icon={faUser} style={{color: "#0f4bff",padding:'5px'}} />
                     </label>

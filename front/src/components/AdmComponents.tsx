@@ -1,7 +1,8 @@
 import type { FormEvent } from "react";
-import { TextInput } from "./FormComponents";
-import axios from "axios";
+
+
 import toast from "react-hot-toast";
+import api from "../lib/axios";
 
 export function ProductForm()
 {   
@@ -15,7 +16,7 @@ export function ProductForm()
        
 
         try {
-             let res = await axios.post("http://localhost:8080/product",
+             let res = await api.post("/product",
                 {
                     name:name,
                     description:description,
@@ -34,8 +35,6 @@ export function ProductForm()
             alert('erro na submissao do produto');
         }
        
-
-
 
     }
     return(

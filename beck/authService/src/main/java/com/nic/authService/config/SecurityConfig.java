@@ -37,9 +37,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http.csrf(csrf -> csrf.disable())
-                .cors(cors-> cors.configurationSource(corsConfigurationSource()))
+
                 .authorizeHttpRequests(requests -> requests
-                     
+
                         .requestMatchers("/auth/register", "/auth/login").permitAll()
                         .anyRequest().permitAll())
                 .build();
@@ -49,18 +49,6 @@ public class SecurityConfig {
     {
         return authenticationConfiguration.getAuthenticationManager();
     }
-     @Bean
-    CorsConfigurationSource corsConfigurationSource()
-    {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        configuration.setAllowCredentials(true); // Permitir envio de credenciais, se necessário
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**",configuration);
-        return source;
-    }
+
     
 }

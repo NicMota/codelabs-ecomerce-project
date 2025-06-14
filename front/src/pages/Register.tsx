@@ -1,14 +1,16 @@
 import type { FormEvent } from "react";
 import { PassInput, SubmitButton, TextInput } from "../components/FormComponents";
-import axios from "axios";
-import toast,{Toaster} from "react-hot-toast";
+
+import toast from "react-hot-toast";
+import api from "../lib/axios";
+import { useAuth } from "../context/AuthContext";
 export default function Register()
 {
     async function handleSubmit(e : FormEvent<HTMLFormElement>)
     {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-
+      
         const { user, email, password, confirm_password }  = Object.fromEntries(formData) as
         {
             user: string;
@@ -25,11 +27,15 @@ export default function Register()
             return;   
         }
         try{
-            let res = await axios.post('http://localhost:8080/auth/register', { 
-                user,
-                email,
-                password,
+            let res = await api.post('/auth/register', { 
+                username:user,
+                email:email,
+                password:password
             })
+            if(res.status==201)
+            {
+                window.location.href='/';
+            }
             console.log(res);
         }
         catch(err)

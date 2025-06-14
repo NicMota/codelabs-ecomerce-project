@@ -1,16 +1,17 @@
 import type { Product } from "../types";
 import { ProductCard } from "../components/StoreComponents";
-import axios from "axios";
+
 import { useQuery } from '@tanstack/react-query';
+import api from "../lib/axios";
 
 
 export default function Store()
 {   
  
     const { data: products, isLoading} = useQuery({queryKey:["products"], queryFn:async () => {
-        const res = await axios.get("http://localhost:8080/product");
+        const res = await api.get("/product");
         return res.data;
-        console.log(res.data);
+     
     }});
 
     if (isLoading) {
