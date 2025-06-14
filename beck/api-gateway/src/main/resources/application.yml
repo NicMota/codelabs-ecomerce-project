@@ -1,0 +1,33 @@
+server:
+  port:8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    config:
+      enabled: false
+    gateway:
+#      routes:
+#        - id: auth
+#          predicates:
+#            - Path=/auth/
+#          uri: localhost:8081
+#        - id: product
+#          predicates:
+#            - Path=/product/
+#          uri: localhost:8082
+#        - id: payment
+#          predicates:
+#            - Path=/payment/
+#          uri: localhost:8083
+      discovery:
+        locator:
+          enabled: true
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST

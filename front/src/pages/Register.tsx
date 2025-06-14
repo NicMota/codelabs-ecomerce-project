@@ -25,12 +25,10 @@ export default function Register()
             return;   
         }
         try{
-            let res = await axios.post('http://localhost:8081/auth/register', { 
-                
+            let res = await axios.post('http://localhost:8080/auth/register', { 
                 user,
                 email,
                 password,
-                
             })
             console.log(res);
         }

@@ -24,7 +24,7 @@ export default function Home()
             return;
         }
         try{
-            let res = await axios.post('http://localhost:8081/auth/login', {
+            let res = await axios.post('http://localhost:8080/auth/login', {
                 username:user,
                 password:pass
             });
