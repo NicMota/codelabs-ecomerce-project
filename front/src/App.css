@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+.gradient-anim
+{
+    animation:gradient 10s ease infinite;
+    background:linear-gradient(-45deg,#2f1e797a, #fd95bda9,#232fd5b7,#2376d59f);
+    background-size:400% 400%;
+}
+.gradient-text-anim:hover
+{
+    animation:text-gradient 5s ease infinite;
+    background:linear-gradient(to right,#ff0000, #0228ff,#ff1100d5,#ff8282);
+    background-size: 200%;
+    background-clip: text;
+    font-weight: bolder;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+@keyframes text-gradient{
+      0%{
+        background-position: 0% 100%;
+    }
+    50%{
+        background-position: 200% 100%;
+    }
+    100%{
+        background-position: 0% 100%;
+    }
+}
+@keyframes gradient 
+{
+    0%{
+        background-position: 0% 50%;
+    }
+    50%{
+        background-position: 100% 50%;
+    }
+    100%{
+        background-position: 0% 50%;
+    }
+}

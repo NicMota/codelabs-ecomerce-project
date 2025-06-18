@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AuthServiceApplication<authService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.nic.authService.AuthServiceApplication",
+            "projectName": "authService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=53407 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=authService"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-RegistryServiceApplication<RegistryService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.nic.RegistryService.RegistryServiceApplication",
+            "projectName": "RegistryService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-ProductService<ProductService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.nic.productService.ProductService",
+            "projectName": "ProductService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
